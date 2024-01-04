@@ -14,10 +14,19 @@
   "contributes": {
     "commands": [
       {
-        "command": "autocomponentkit.helloWorld",
-        "title": "Hello World"
+        "command": "createComponent",
+        "title": "Create Component"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "createComponent",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
