@@ -1,4 +1,4 @@
-import { makefile } from './utils';
+import { makefile } from 'utils/makeFile';
 
 const storybookTemplate = (componentName: string) =>
   `import { Meta, StoryObj } from '@storybook/react';

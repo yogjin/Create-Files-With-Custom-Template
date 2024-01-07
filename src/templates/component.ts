@@ -1,4 +1,4 @@
-import { makefile } from './utils';
+import { makefile } from 'utils/makeFile';
 
 export const componentTemplate = (componentName: string) =>
   `type Props = {};
