@@ -1,25 +1,40 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { createComponentFile } from './templates/component';
+import { createStorybookFile } from './templates/storybook';
+import { createCSSFile } from './templates/css';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log('Congratulations, your extension "autocomponentkit" is now active!');
+  let disposable = vscode.commands.registerCommand('createComponent', async (uri) => {
+    // 사용자로부터 컴포넌트의 이름을 입력받음
+    const componentName = await vscode.window.showInputBox({
+      placeHolder: 'Enter the Component name',
+    });
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand('autocomponentkit.helloWorld', () => {
-    // The code you place here will be executed every time your command is executed
-    // Display a message box to the user
-    vscode.window.showInformationMessage('Hello World from AutoComponentKit!');
+    if (!componentName) {
+      vscode.window.showInformationMessage('Component creation cancelled.');
+      return;
+    }
+
+    // 현재 선택된 폴더 경로를 가져옴
+    const folderPath = uri.fsPath;
+
+    if (folderPath) {
+      // 파일 생성 로직
+      createComponentFiles(folderPath, componentName);
+    } else {
+      vscode.window.showInformationMessage('Please select a folder to create the component.');
+    }
   });
 
   context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
+function createComponentFiles(folderPath: string, componentName: string) {
+  createComponentFile(folderPath, componentName);
+
+  createStorybookFile(folderPath, componentName);
+
+  createCSSFile(folderPath, componentName);
+}
+
 export function deactivate() {}
