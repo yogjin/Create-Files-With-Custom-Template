@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import path from 'path';
-import { createComponentFile } from 'templates/component';
-import { createStorybookFile } from 'templates/storybook';
-import { createCSSFile } from 'templates/css';
-import { createDirectory } from 'utils/createDirectory';
+import { createComponentFile } from './templates/component';
+import { createStorybookFile } from './templates/storybook';
+import { createCSSFile } from './templates/css';
+import { createDirectory } from './utils/createDirectory';
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('createComponent', async (uri) => {
