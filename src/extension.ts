@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
-import { createComponentFile } from './templates/component';
-import { createStorybookFile } from './templates/storybook';
-import { createCSSFile } from './templates/css';
+import path from 'path';
+import { createComponentFile } from 'templates/component';
+import { createStorybookFile } from 'templates/storybook';
+import { createCSSFile } from 'templates/css';
+import { createDirectory } from 'utils/createDirectory';
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('createComponent', async (uri) => {
@@ -19,8 +21,10 @@ export function activate(context: vscode.ExtensionContext) {
     const folderPath = uri.fsPath;
 
     if (folderPath) {
-      // 파일 생성 로직
-      createComponentFiles(folderPath, componentName);
+      // 폴더도 함께 생성
+      await createDirectory(vscode.Uri.joinPath(folderPath, componentName));
+
+      createComponentFiles(path.join(folderPath, componentName), componentName);
     } else {
       vscode.window.showInformationMessage('Please select a folder to create the component.');
     }
