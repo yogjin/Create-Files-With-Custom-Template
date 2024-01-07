@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
-export const createDirectory = (directoryPath: vscode.Uri) => {
-  return vscode.workspace.fs.createDirectory(directoryPath);
+export const createDirectory = (path: string) => {
+  const uri = vscode.Uri.file(path);
+
+  return vscode.workspace.fs.createDirectory(uri);
 };
