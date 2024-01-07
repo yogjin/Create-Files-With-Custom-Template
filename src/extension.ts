@@ -22,9 +22,10 @@ export function activate(context: vscode.ExtensionContext) {
 
     if (folderPath) {
       // 폴더도 함께 생성
-      await createDirectory(vscode.Uri.joinPath(folderPath, componentName));
+      const directoryPath = path.join(folderPath, componentName);
+      await createDirectory(directoryPath);
 
-      createComponentFiles(path.join(folderPath, componentName), componentName);
+      createComponentFiles(directoryPath, componentName);
     } else {
       vscode.window.showInformationMessage('Please select a folder to create the component.');
     }
