@@ -6,7 +6,7 @@ import Handlebars from 'handlebars';
 async function selectTemplate() {
   // 템플릿 가져오기
   const rootPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath!; // 프로젝트 루트 디렉터리 경로
-  const templatesPath = path.join(rootPath, 'templates');
+  const templatesPath = path.join(rootPath, 'customTemplates');
 
   // 현재 경로의 내용 읽기
   const entries = await vscode.workspace.fs.readDirectory(vscode.Uri.file(templatesPath));
@@ -53,7 +53,7 @@ async function selectTemplate() {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand('createComponent', async (uri) => {
+  let disposable = vscode.commands.registerCommand('createFilesWithCustomTemplate', async (uri) => {
     // const templates = await vscode.workspace.fs.readDirectory(vscode.Uri.file(templatesPath));
 
     // 템플릿 선택

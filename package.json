@@ -1,7 +1,7 @@
 {
-  "name": "autocomponentkit",
-  "displayName": "AutoComponentKit",
-  "description": "it automatically generates a comprehensive component folder structure, complete with style files, storybook configurations, and component files. This tool is perfect for developers who regularly work with component-based frameworks and want to save time on repetitive setup tasks.",
+  "name": "createFilesWithCustomTemplate",
+  "displayName": "createFilesWithCustomTemplate",
+  "description": "createFilesWithCustomTemplate is an extension for Visual Studio Code that enables the quick and easy creation of new files using user-defined templates. It streamlines the process of generating components, configuration files, and other file types, ensuring consistency and efficiency in your workflow.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.85.0"
@@ -14,14 +14,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "createComponent",
-        "title": "Create Component"
+        "command": "createFilesWithCustomTemplate",
+        "title": "Create files with custom template"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "createComponent",
+          "command": "createFilesWithCustomTemplate",
           "group": "navigation",
           "when": "explorerResourceIsFolder"
         }
