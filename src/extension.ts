@@ -1,9 +1,5 @@
 import * as vscode from 'vscode';
 import path from 'path';
-import { createComponentFile } from './templates/component';
-import { createStorybookFile } from './templates/storybook';
-import { createCSSFile } from './templates/css';
-import { createDirectory } from './utils/createDirectory';
 import { makefile } from './utils/makeFile';
 import Handlebars from 'handlebars';
 
