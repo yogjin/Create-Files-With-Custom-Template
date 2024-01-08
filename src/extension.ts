@@ -4,6 +4,8 @@ import { createComponentFile } from './templates/component';
 import { createStorybookFile } from './templates/storybook';
 import { createCSSFile } from './templates/css';
 import { createDirectory } from './utils/createDirectory';
+import { makefile } from './utils/makeFile';
+import Handlebars from 'handlebars';
 
 async function selectTemplate() {
   // 템플릿 가져오기
@@ -62,6 +64,10 @@ export function activate(context: vscode.ExtensionContext) {
     const selectedFiles = await selectTemplate();
     vscode.window.showInformationMessage(`Selected template: ${selectedFiles}`);
 
+    if (!selectedFiles) {
+      return;
+    }
+
     // 사용자로부터 컴포넌트의 이름을 입력받음
     const componentName = await vscode.window.showInputBox({
       placeHolder: 'Enter the Component name',
@@ -76,11 +82,7 @@ export function activate(context: vscode.ExtensionContext) {
     const folderPath = uri.fsPath;
 
     if (folderPath) {
-      // 폴더도 함께 생성
-      const directoryPath = path.join(folderPath, componentName);
-      await createDirectory(directoryPath);
-
-      createComponentFiles(directoryPath, componentName);
+      createSelectedTemplates(folderPath, selectedFiles, componentName);
     } else {
       vscode.window.showInformationMessage('Please select a folder to create the component.');
     }
@@ -89,12 +91,45 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-function createComponentFiles(folderPath: string, componentName: string) {
-  createComponentFile(folderPath, componentName);
+async function createSelectedTemplates(
+  folderPath: string,
+  template: vscode.Uri | vscode.Uri[],
+  componentName: string
+) {
+  // 현재 폴더기능(파일 여러개 변환)은 안됨
+  if (template instanceof Array) {
+    template.forEach(async (template) => {
+      const templateContent = await readFileContents(template);
+      makefile(folderPath, path.basename(template.fsPath), templateContent);
+    });
+    return;
+  }
 
-  createStorybookFile(folderPath, componentName);
+  // 파일 하나만 선택했을 때
+  const templateFileName = path.basename(template.fsPath);
+  const handlerBarFileNameTemplate = Handlebars.compile(templateFileName);
+  const 변환결과FileName = handlerBarFileNameTemplate({ name: componentName });
 
-  createCSSFile(folderPath, componentName);
+  const templateContent = await readFileContents(template);
+  const handlerbarTemplate = Handlebars.compile(templateContent);
+  const 변환결과Content = handlerbarTemplate({ name: componentName });
+
+  makefile(folderPath, 변환결과FileName, 변환결과Content);
+}
+
+async function readFileContents(uri: vscode.Uri): Promise<string> {
+  try {
+    // 파일의 내용을 Uint8Array 형태로 읽어옴
+    const data = await vscode.workspace.fs.readFile(uri);
+
+    // Uint8Array를 문자열로 변환
+    const text = new TextDecoder('utf-8').decode(data);
+
+    return text;
+  } catch (error) {
+    console.error(`Error reading file: ${uri.fsPath}`, error);
+    throw error; // 오류를 던지거나, 적절한 오류 처리를 수행
+  }
 }
 
 export function deactivate() {}
