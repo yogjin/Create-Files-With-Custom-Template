@@ -98,14 +98,21 @@ async function createSelectedTemplates(
 ) {
   // 현재 폴더기능(파일 여러개 변환)은 안됨
   if (template instanceof Array) {
-    template.forEach(async (template) => {
-      const templateContent = await readFileContents(template);
-      makefile(folderPath, path.basename(template.fsPath), templateContent);
-    });
+    template.forEach(async (template) =>
+      템플릿내부문자변환한파일생성하기(folderPath, template, componentName)
+    );
     return;
   }
 
   // 파일 하나만 선택했을 때
+  템플릿내부문자변환한파일생성하기(folderPath, template, componentName);
+}
+
+async function 템플릿내부문자변환한파일생성하기(
+  folderPath: string,
+  template: vscode.Uri,
+  componentName: string
+) {
   const templateFileName = path.basename(template.fsPath);
   const handlerBarFileNameTemplate = Handlebars.compile(templateFileName);
   const 변환결과FileName = handlerBarFileNameTemplate({ name: componentName });
