@@ -1,3 +1,5 @@
+버그 제보, 개선 사항은 이슈를 통해 언제든 환영입니다!
+
 ## `Create Files With Custom Template`
 
 VSCode Extension 입니다.
