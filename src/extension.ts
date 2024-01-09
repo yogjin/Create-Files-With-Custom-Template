@@ -11,9 +11,11 @@ async function selectTemplate() {
   try {
     const templatesPathExists = await vscode.workspace.fs.stat(vscode.Uri.file(templatesPath));
   } catch (error) {
-    vscode.window.showErrorMessage(
-      'Please create a customTemplates folder on the root path. ' + error.message
-    );
+    if (error instanceof vscode.FileSystemError) {
+      vscode.window.showErrorMessage(
+        'Please create a customTemplates folder on the root path. ' + error.message
+      );
+    }
   }
 
   // 현재 경로의 내용 읽기
