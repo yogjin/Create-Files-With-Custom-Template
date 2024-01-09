@@ -1,6 +1,7 @@
 {
   "name": "createFilesWithCustomTemplate",
-  "displayName": "createFilesWithCustomTemplate",
+  "displayName": "Create Files With Custom Template",
+  "publisher": "YoungjinPark",
   "description": "createFilesWithCustomTemplate is an extension for Visual Studio Code that enables the quick and easy creation of new files using user-defined templates. It streamlines the process of generating components, configuration files, and other file types, ensuring consistency and efficiency in your workflow.",
   "version": "0.0.1",
   "engines": {
