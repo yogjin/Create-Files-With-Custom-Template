@@ -8,6 +8,14 @@ async function selectTemplate() {
   const rootPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath!; // 프로젝트 루트 디렉터리 경로
   const templatesPath = path.join(rootPath, 'customTemplates');
 
+  try {
+    const templatesPathExists = await vscode.workspace.fs.stat(vscode.Uri.file(templatesPath));
+  } catch (error) {
+    vscode.window.showErrorMessage(
+      'Please create a customTemplates folder on the root path. ' + error.message
+    );
+  }
+
   // 현재 경로의 내용 읽기
   const entries = await vscode.workspace.fs.readDirectory(vscode.Uri.file(templatesPath));
 
