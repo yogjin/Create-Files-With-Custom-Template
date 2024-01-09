@@ -1,7 +1,9 @@
-# Introduction
+## `Create Files With Custom Template`
+This is a VSCode extension.
+
 Have you ever found yourself repeatedly creating files of the same format, such as storybook files or component files? Such repetitive tasks can be tedious. However, with the ability to create templates, you can easily generate files of the same format using the "Create Files With Custom Template" feature. This is available as a VSCode extension, making it easy to install and use.
 
-# How to Use
+## How to Use
 ### 1. Install the Extension
 Click [here](https://marketplace.visualstudio.com/items?itemName=YoungJinPark.createFilesWithCustomTemplate) to install.
 
