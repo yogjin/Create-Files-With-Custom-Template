@@ -72,9 +72,9 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    // 사용자로부터 컴포넌트의 이름을 입력받음
+    // 사용자로부터 파일 이름: {{name}} 을 입력받음
     const componentName = await vscode.window.showInputBox({
-      placeHolder: 'Enter the Component name',
+      placeHolder: 'Enter the File name',
     });
 
     if (!componentName) {
