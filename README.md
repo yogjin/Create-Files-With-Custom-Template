@@ -1,5 +1,7 @@
 [Korean](https://github.com/yogjin/Create-Files-With-Custom-Template/blob/main/README-ko.md)
 
+Bug reports and suggestions for improvement are always welcome through the github Issues
+
 ## `Create Files With Custom Template`
 This is a VSCode extension.
 
